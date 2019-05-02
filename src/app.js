@@ -9,13 +9,14 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 
 const app = express();
+app.use(express.json());
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'dev';
 
 app.use(morgan(morganOption));
-app.use(cors(corsOptions));
+app.use(cors({origin: corsOptions}));
 app.use(helmet());
 
 app.get('/', (req, res) => {
