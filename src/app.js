@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const corsOptions = require('./cors-whitelist');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 
@@ -14,7 +15,7 @@ const morganOption = (NODE_ENV === 'production')
   : 'dev';
 
 app.use(morgan(morganOption));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 
 app.get('/', (req, res) => {
